@@ -1,0 +1,7 @@
+{
+  "version": "0.2.0",
+  "type": "MetadataDefinitionPlugin",
+  "id": "com.fraymakers.FraymakersMetadata",
+  "name": "Fraymakers Metadata Definitions",
+  "description": "Supplies custom properties panel fields for Fraymakers."
+}

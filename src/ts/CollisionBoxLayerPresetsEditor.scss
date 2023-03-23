@@ -1,0 +1,23 @@
+.CollisionBoxLayerPresetsEditor {
+  select {
+    min-width: 100px;
+  }
+}
+.CollisionBoxLayerPresetsEditorListItem {
+  > td {
+    text-align: left;
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      font-size: 11px;
+      &:read-only  {
+        color: #444444;
+      }
+    }
+    > button {
+      width: 27px;
+      height: 25px;
+      margin-left: 0px;
+      font-size: 11px;
+    }
+  }
+}

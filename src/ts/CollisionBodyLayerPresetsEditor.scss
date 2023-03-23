@@ -1,0 +1,18 @@
+.CollisionBodyLayerPresetsEditorListItem {
+  > td {
+    text-align: left;
+    > input {
+      width: 100%;
+      font-size: 11px;
+      &:read-only  {
+        color: #444444;
+      }
+    }
+    > button {
+      width: 27px;
+      height: 25px;
+      margin-left: 0px;
+      font-size: 11px;
+    }
+  }
+}
