@@ -683,6 +683,7 @@ export default class FraymakersMetadata extends BaseTypeDefinitionPlugin<IFrayma
               defaultValue: 'NONE',
               options: [
                 { label: 'None', value: 'NONE' },
+                { label: 'Background Behind', value: 'BACKGROUND_BEHIND_CONTAINER' },
                 { label: 'Background Structures', value: 'BACKGROUND_STRUCTURES_CONTAINER' },
                 { label: 'Background Shadows', value: 'BACKGROUND_SHADOWS_CONTAINER' },
                 { label: 'Background Effects', value: 'BACKGROUND_EFFECTS_CONTAINER' },
@@ -691,11 +692,23 @@ export default class FraymakersMetadata extends BaseTypeDefinitionPlugin<IFrayma
                 { label: 'Characters Front', value: 'CHARACTERS_FRONT_CONTAINER' },
                 { label: 'Foreground Structures', value: 'FOREGROUND_STRUCTURES_CONTAINER' },
                 { label: 'Foreground Shadows', value: 'FOREGROUND_SHADOWS_CONTAINER' },
-                { label: 'Foreground Effects', value: 'FOREGROUND_EFFECTS_CONTAINER' }
+                { label: 'Foreground Effects', value: 'FOREGROUND_EFFECTS_CONTAINER' },
+                { label: 'Foreground Front', value: 'FOREGROUND_FRONT_CONTAINER' },
               ],
               dependsOn: []
             }],
             effects: [
+              {
+                dependsOn: [
+                  {
+                    inputField: 'pluginMetadata[].containerType',
+                    operator: '=',
+                    inputValue: 'BACKGROUND_BEHIND_CONTAINER'
+                  }
+                ],
+                outputField: 'name',
+                outputValue: 'Background Behind'
+              },
               {
                 dependsOn: [
                   {
@@ -794,6 +807,17 @@ export default class FraymakersMetadata extends BaseTypeDefinitionPlugin<IFrayma
                 ],
                 outputField: 'name',
                 outputValue: 'Foreground Effects'
+              },
+              {
+                dependsOn: [
+                  {
+                    inputField: 'pluginMetadata[].containerType',
+                    operator: '=',
+                    inputValue: 'FOREGROUND_FRONT_CONTAINER'
+                  }
+                ],
+                outputField: 'name',
+                outputValue: 'Foreground Front'
               }
             ]
           }
