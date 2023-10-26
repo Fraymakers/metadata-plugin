@@ -1,7 +1,7 @@
 {
   "name": "@fraymakers/metadata-plugin",
-  "version": "0.2.0",
-  "description": "Source code for the Fraymakers Metadata Defintion Plugin for FrayTools.",
+  "version": "0.3.0",
+  "description": "Source code for the Fraymakers Metadata Definition Plugin for FrayTools.",
   "private": true,
   "repository": {
     "type": "git",
