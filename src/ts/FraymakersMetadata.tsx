@@ -359,11 +359,44 @@ export default class FraymakersMetadata extends BaseTypeDefinitionPlugin<IFrayma
                 { label: 'Grab Hold Point', value: 'GRAB_HOLD_POINT' },
                 { label: 'Ledge Hold Point', value: 'LEDGE_HOLD_POINT' },
                 { label: 'Pivot Point', value: 'PIVOT_POINT' },
-                { label: 'Autolink Point', value: 'AUTOLINK_POINT' }
+                { label: 'Autolink Point', value: 'AUTOLINK_POINT' },
+                { label: 'Custom Box A', value: 'CUSTOM_BOX_A' },
+                { label: 'Custom Box B', value: 'CUSTOM_BOX_B' },
+                { label: 'Custom Box C', value: 'CUSTOM_BOX_C' }
               ],
               dependsOn: []
+            },{
+              name: 'index',
+              label: 'Index',
+              type: 'INTEGER',
+              defaultValue: 0,
+              dependsOn: [
+                {
+                  inputField: 'pluginMetadata[].pointType',
+                  operator: 'matches()',
+                  inputValue: 'CUSTOM_BOX_A|CUSTOM_BOX_B|CUSTOM_BOX_C'
+                }
+              ]
             }],
             effects: [
+              // Ensure index field always exist so that we can populate the layer name with it
+              {
+                dependsOn: [
+                  {
+                    inputField: 'pluginMetadata[].pointType',
+                    operator: 'matches()',
+                    inputValue: 'CUSTOM_BOX_A|CUSTOM_BOX_B|CUSTOM_BOX_C'
+                  },
+                  {
+                    inputField: 'pluginMetadata[].index',
+                    operator: '=',
+                    inputValue: undefined
+                  }
+                ],
+                outputField: 'pluginMetadata[].index',
+                outputValue: 0
+              },
+              // Populate layer name
               {
                 dependsOn: [
                   {
@@ -407,6 +440,39 @@ export default class FraymakersMetadata extends BaseTypeDefinitionPlugin<IFrayma
                 ],
                 outputField: 'name',
                 outputValue: 'autolinkpoint0'
+              },
+              {
+                dependsOn: [
+                  {
+                    inputField: 'pluginMetadata[].pointType',
+                    operator: '=',
+                    inputValue: 'CUSTOM_BOX_A'
+                  }
+                ],
+                outputField: 'name',
+                outputValue: 'customboxa{{pluginMetadata[].index}}'
+              },
+              {
+                dependsOn: [
+                  {
+                    inputField: 'pluginMetadata[].pointType',
+                    operator: '=',
+                    inputValue: 'CUSTOM_BOX_B'
+                  }
+                ],
+                outputField: 'name',
+                outputValue: 'customboxb{{pluginMetadata[].index}}'
+              },
+              {
+                dependsOn: [
+                  {
+                    inputField: 'pluginMetadata[].pointType',
+                    operator: '=',
+                    inputValue: 'CUSTOM_BOX_C'
+                  }
+                ],
+                outputField: 'name',
+                outputValue: 'customboxc{{pluginMetadata[].index}}'
               }
             ]
           },
