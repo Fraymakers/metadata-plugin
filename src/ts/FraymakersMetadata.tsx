@@ -518,10 +518,23 @@ export default class FraymakersMetadata extends BaseTypeDefinitionPlugin<IFrayma
                 { label: 'None', value: 'NONE' },
                 { label: 'Death Box', value: 'DEATH_BOX' },
                 { label: 'Camera Box', value: 'CAMERA_BOX' },
+                { label: 'Camera Anchor Box', value: 'CAMERA_ANCHOR_BOX' },
                 ...this.getRectCollisionAreaDropdownOptions(),
                 ...this.getRectStructureDropdownOptions()
               ],
               dependsOn: []
+            },{
+              name: 'index',
+              label: 'Index',
+              type: 'INTEGER',
+              defaultValue: 0,
+              dependsOn: [
+                {
+                  inputField: 'pluginMetadata[].collisionBoxType',
+                  operator: 'matches()',
+                  inputValue: 'CAMERA_ANCHOR_BOX'
+                }
+              ]
             }],
             effects: [
               ...this.getRectCollisionAreaEffects(),
@@ -531,7 +544,7 @@ export default class FraymakersMetadata extends BaseTypeDefinitionPlugin<IFrayma
                   {
                     inputField: 'pluginMetadata[].collisionBoxType',
                     operator: 'matches()',
-                    inputValue: 'DEATH_BOX|CAMERA_BOX|RECT_COLLISION_AREA|RECT_STRUCTURE'
+                    inputValue: 'DEATH_BOX|CAMERA_BOX|CAMERA_ANCHOR_BOX|RECT_COLLISION_AREA|RECT_STRUCTURE'
                   }
                 ],
                 outputField: 'defaultAlpha',
@@ -602,6 +615,46 @@ export default class FraymakersMetadata extends BaseTypeDefinitionPlugin<IFrayma
                 ],
                 outputField: 'defaultColor',
                 outputValue: '0xd1d1d1'
+              },
+              {
+                dependsOn: [
+                  {
+                    inputField: 'pluginMetadata[].collisionBoxType',
+                    operator: '=',
+                    inputValue: 'CAMERA_ANCHOR_BOX'
+                  }
+                ],
+                outputField: 'defaultColor',
+                outputValue: '0xd1d1d1'
+              },
+              // Ensure index field always exist so that we can populate the layer name with it
+              {
+                dependsOn: [
+                  {
+                    inputField: 'pluginMetadata[].collisionBoxType',
+                    operator: 'matches()',
+                    inputValue: 'CAMERA_ANCHOR_BOX'
+                  },
+                  {
+                    inputField: 'pluginMetadata[].index',
+                    operator: '=',
+                    inputValue: undefined
+                  }
+                ],
+                outputField: 'pluginMetadata[].index',
+                outputValue: 0
+              },
+              // Populate layer name
+              {
+                dependsOn: [
+                  {
+                    inputField: 'pluginMetadata[].collisionBoxType',
+                    operator: 'matches()',
+                    inputValue: 'CAMERA_ANCHOR_BOX'
+                  }
+                ],
+                outputField: 'name',
+                outputValue: 'Camera Anchor Box {{pluginMetadata[].index}}'
               }
             ]
           },
