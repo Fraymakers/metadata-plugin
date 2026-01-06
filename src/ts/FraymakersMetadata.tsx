@@ -1109,6 +1109,32 @@ export default class FraymakersMetadata extends BaseTypeDefinitionPlugin<IFrayma
             }
           ]
         },{
+          name: 'leftLedgeGrabLayerType',
+          label: 'Left Ledge Grab Layer Type',
+          type: 'DROPDOWN',
+          defaultValue: 'BEHIND',
+          options: [
+            { label: 'Behind', value: 'BEHIND' },
+            { label: 'Front', value: 'FRONT' }
+          ],
+          dependsOn: [
+            {
+              inputField: 'parent.parent.pluginMetadata[].lineSegmentType',
+              operator: '=',
+              inputValue: 'LINE_SEGMENT_STRUCTURE'
+            },
+            {
+              inputField: 'pluginMetadata[].structureType',
+              operator: '=',
+              inputValue: 'FLOOR'
+            },
+            {
+              inputField: 'pluginMetadata[].leftLedge',
+              operator: '=',
+              inputValue: true
+            }
+          ]
+        },{
           name: 'rightLedge',
           label: 'Right Ledge',
           type: 'BOOLEAN',
@@ -1123,6 +1149,32 @@ export default class FraymakersMetadata extends BaseTypeDefinitionPlugin<IFrayma
               inputField: 'pluginMetadata[].structureType',
               operator: '=',
               inputValue: 'FLOOR'
+            }
+          ]
+        },{
+          name: 'rightLedgeGrabLayerType',
+          label: 'Right Ledge Grab Layer Type',
+          type: 'DROPDOWN',
+          defaultValue: 'BEHIND',
+          options: [
+            { label: 'Behind', value: 'BEHIND' },
+            { label: 'Front', value: 'FRONT' }
+          ],
+          dependsOn: [
+            {
+              inputField: 'parent.parent.pluginMetadata[].lineSegmentType',
+              operator: '=',
+              inputValue: 'LINE_SEGMENT_STRUCTURE'
+            },
+            {
+              inputField: 'pluginMetadata[].structureType',
+              operator: '=',
+              inputValue: 'FLOOR'
+            },
+            {
+              inputField: 'pluginMetadata[].rightLedge',
+              operator: '=',
+              inputValue: true
             }
           ]
         }],
